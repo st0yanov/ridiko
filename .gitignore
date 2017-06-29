@@ -29,3 +29,5 @@ yarn-error.log*
 
 # Misc
 .DS_Store
+
+src/bot/config/default.json
