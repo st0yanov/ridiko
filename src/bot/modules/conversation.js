@@ -1,14 +1,13 @@
-const driver = require('./conversation/driver');
-
 import Passenger from './conversation/passenger';
+import Driver from './conversation/driver';
 
 module.exports = (bot) => {
   const searchType = (convo) => {
     convo.ask({
       text: 'Какво търсиш?',
       quickReplies: [
-        { title: 'Превоз', payload: 'SEARCH_TYPE_PASSENGER' },
-        { title: 'Пътници', payload: 'SEARCH_TYPE_DRIVER' },
+        {title: 'Превоз', payload: 'SEARCH_TYPE_PASSENGER'},
+        {title: 'Пътници', payload: 'SEARCH_TYPE_DRIVER'},
       ],
     }, (payload, cconvo, data) => {
       const text = payload.message.text;
@@ -24,7 +23,8 @@ module.exports = (bot) => {
       {
         event: 'quick_reply:SEARCH_TYPE_DRIVER',
         callback: (payload, cconvo) => {
-          driver.conversation(payload, cconvo);
+          const driver = new Driver(payload, cconvo);
+          driver.conversation();
         },
       },
     ], {
