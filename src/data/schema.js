@@ -15,6 +15,7 @@ import {
 import me from './queries/me';
 import trips from './queries/trips';
 import tripSearches from './queries/tripSearches';
+import userToUserRatings from './queries/userToUserRatings';
 
 const schema = new Schema({
   query: new ObjectType({
@@ -23,6 +24,7 @@ const schema = new Schema({
       me,
       trips,
       tripSearches,
+      userToUserRatings,
     },
   }),
 });
