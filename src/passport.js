@@ -42,6 +42,8 @@ passport.use(new FacebookStrategy({
         const user = await User.create({
           id: req.user.id,
           email: profile._json.email,
+          name: profile.displayName,
+
           logins: [
             { name: loginName, key: profile.id },
           ],

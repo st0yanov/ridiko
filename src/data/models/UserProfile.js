@@ -29,14 +29,33 @@ const UserProfile = Model.define('UserProfile', {
     type: DataType.STRING(50),
   },
 
-  location: {
-    type: DataType.STRING(100),
+  isDriver: {
+    type: DataType.BOOLEAN,
   },
 
-  website: {
-    type: DataType.STRING(255),
+  hasAirConditioning: {
+    type: DataType.BOOLEAN,
   },
 
+  prefersAirConditioning: {
+    type: DataType.BOOLEAN,
+  },
+
+  isSmoking: {
+    type: DataType.BOOLEAN,
+  },
+
+  isTolerantToSmoking: {
+    type: DataType.BOOLEAN,
+  },
+
+  isTolerantToPets: {
+    type: DataType.BOOLEAN,
+  },
+
+  isTolerantToEating: {
+    type: DataType.BOOLEAN,
+  },
 });
 
 export default UserProfile;

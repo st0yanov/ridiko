@@ -28,6 +28,16 @@ const User = Model.define('User', {
     defaultValue: false,
   },
 
+  name: {
+    type: DataType.STRING(255),
+  },
+
+  phone: {
+    type: DataType.STRING(255),
+    is: /^(\(?\+?[0-9]*\)?)?[0-9_\- ()]*$/i,
+    defaultValue: '',
+  },
+
 }, {
 
   indexes: [
