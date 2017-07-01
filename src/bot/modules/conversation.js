@@ -1,4 +1,5 @@
 const driver = require('./conversation/driver');
+
 import Passenger from './conversation/passenger';
 
 module.exports = (bot) => {
