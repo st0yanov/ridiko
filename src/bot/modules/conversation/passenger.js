@@ -1,3 +1,5 @@
+import TripSearch from '../../../data/models/TripSearch';
+
 export default class Passenger {
   constructor(payload, convo) {
     this.payload = payload;
@@ -81,6 +83,14 @@ export default class Passenger {
 
 Намираш се на 4-то място в опашката с чакащи за тази дата и този часови диапазон. Ще ти изпратим съобщение когато намерим шофьор.
 Ако междувременно решиш да се откажеш от пътуването, моля използвай менюто.`);
+
+    TripSearch.create({
+      dateStarted: this.convo.get('trip_date'),
+      source: this.convo.get('trip_from'),
+      destination: this.convo.get('trip_to'),
+      timeRange: this.convo.get('trip_time'),
+      user: this.convo.get('user'),
+    });
 
     this.convo.end();
   }
