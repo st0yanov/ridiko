@@ -1,0 +1,31 @@
+@import '../../components/variables.css';
+
+.Trip .line {
+  overflow: hidden;
+}
+
+.Trip .source {
+  float: left;
+  font-style: italic;
+}
+
+.Trip .destination {
+  float: right;
+  font-style: italic;
+}
+
+.Trip .startTime {
+  float: left;
+}
+
+.Trip .dateAdded {
+  float: right;
+}
+
+.Trip .freeSeats {
+  float: right;
+}
+
+.Trip.dropped {
+  text-decoration: line-through;
+}
