@@ -10,7 +10,7 @@ const UserToUserRatingType = new ObjectType({
   name: 'UserToUserRating',
   fields: {
     dateRated: { type: new NonNull(StringType) },
-    dateDropped: { type: new NonNull(StringType) },
+    dateDropped: { type: StringType },
     isRatedOrganizer: { type: BooleanType },
     rating: { type: IntType },
     comment: { type: new NonNull(StringType) },

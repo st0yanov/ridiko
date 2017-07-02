@@ -29,9 +29,9 @@ class Trips extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>{this.props.title}</h1>
-          {this.props.tripSearches.maps(tripSearch => <TripSearch {...tripSearch} />)}
+          {this.props.tripSearches.map(tripSearch => <TripSearch {...tripSearch} />)}
           <hr />
-          {this.props.trips.maps(trip => <Trip {...trip} />)}
+          {this.props.trips.map(trip => <Trip {...trip} />)}
         </div>
       </div>
     );
