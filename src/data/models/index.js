@@ -16,6 +16,7 @@ import UserProfile from './UserProfile';
 
 import Trip from './Trip';
 import UserToUserRating from './UserToUserRating';
+import TripSearch from './TripSearch';
 
 User.hasMany(UserLogin, {
   foreignKey: 'userId',
@@ -66,10 +67,17 @@ User.hasMany(UserToUserRating, {
   onDelete: 'cascade',
 });
 
+User.hasMany(TripSearch, {
+  foreignKey: 'user',
+  as: 'tripSearches',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
 function sync(...args) {
   return sequelize.sync(...args);
 }
 
 export default { sync };
 export { User, UserLogin, UserClaim, UserProfile,
-         Trip, UserToUserRating };
+         Trip, UserToUserRating, TripSearch };
