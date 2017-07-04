@@ -12,7 +12,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
-import { createPath } from 'history/PathUtils';
 import App from './components/App';
 import createFetch from './createFetch';
 import configureStore from './store/configureStore';
@@ -56,12 +55,6 @@ let onRenderComplete = function initialRenderComplete() {
     document.title = route.title;
 
     updateMeta('description', route.description);
-    // Update necessary tags in <head> at runtime here, ie:
-    // updateMeta('keywords', route.keywords);
-    // updateCustomMeta('og:url', route.canonicalUrl);
-    // updateCustomMeta('og:image', route.imageUrl);
-    // updateLink('canonical', route.canonicalUrl);
-    // etc.
 
     let scrollX = 0;
     let scrollY = 0;
@@ -83,12 +76,6 @@ let onRenderComplete = function initialRenderComplete() {
     // or scroll to the given #hash anchor
     // or scroll to top of the page
     window.scrollTo(scrollX, scrollY);
-
-    // Google Analytics tracking. Don't send 'pageview' event after
-    // the initial rendering, as it was already sent
-    if (window.ga) {
-      window.ga('send', 'pageview', createPath(location));
-    }
   };
 };
 
@@ -110,16 +97,12 @@ async function onLocationChange(location, action) {
   currentLocation = location;
 
   try {
-    // Traverses the list of routes in the order they are defined until
-    // it finds the first route that matches provided URL path string
-    // and whose action method returns anything other than `undefined`.
     const route = await router.resolve({
       ...context,
       path: location.pathname,
       query: queryString.parse(location.search),
     });
 
-    // Prevent multiple page renders during the routing process
     if (currentLocation.key !== location.key) {
       return;
     }
@@ -148,16 +131,12 @@ async function onLocationChange(location, action) {
   }
 }
 
-// Handle client-side navigation by using HTML5 History API
-// For more information visit https://github.com/mjackson/history#readme
 history.listen(onLocationChange);
 onLocationChange(currentLocation);
 
-// Enable Hot Module Replacement (HMR)
 if (module.hot) {
   module.hot.accept('./router', () => {
     if (appInstance) {
-      // Force-update the whole tree, including components that refuse to update
       deepForceUpdate(appInstance);
     }
 
