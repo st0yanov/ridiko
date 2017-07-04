@@ -1,17 +1,17 @@
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-const TripSearch = Model.define('TripSearch', {
-  dateStarted: {
+const UserTripMapping = Model.define('UserTripMapping', {
+  dateMapped: {
     type: DataType.DATE,
   },
   dateDropped: {
     type: DataType.DATE,
   },
 
-  destination: {
-    type: DataType.STRING(255),
+  willBringPets: {
+    type: DataType.BOOLEAN,
   },
 });
 
-export default TripSearch;
+export default UserTripMapping;
