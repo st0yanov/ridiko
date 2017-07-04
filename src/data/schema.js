@@ -13,12 +13,16 @@ import {
 } from 'graphql';
 
 import me from './queries/me';
+import trips from './queries/trips';
+import tripSearches from './queries/tripSearches';
 
 const schema = new Schema({
   query: new ObjectType({
     name: 'Query',
     fields: {
       me,
+      trips,
+      tripSearches,
     },
   }),
 });
