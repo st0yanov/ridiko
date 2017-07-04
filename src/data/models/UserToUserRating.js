@@ -9,20 +9,16 @@ const UserToUserRating = Model.define('UserToUserRating', {
     type: DataType.DATE,
   },
 
-  source: {
-    type: DataType.STRING(255),
+  isRatedOrganizer: {
+    type: DataType.BOOLEAN,
   },
 
-  startTime: {
-    type: DataType.DATE,
-  },
-
-  destination: {
-    type: DataType.STRING(255),
-  },
-
-  freeSeats: {
+  rating: {
     type: DataType.INTEGER,
+  },
+
+  comment: {
+    type: DataType.STRING(255),
   },
 });
 
