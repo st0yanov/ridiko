@@ -8,10 +8,14 @@
  */
 
 import sequelize from '../sequelize';
+
 import User from './User';
 import UserLogin from './UserLogin';
 import UserClaim from './UserClaim';
 import UserProfile from './UserProfile';
+
+import Trip from './Trip';
+import UserToUserRating from './UserToUserRating';
 
 User.hasMany(UserLogin, {
   foreignKey: 'userId',
@@ -34,9 +38,38 @@ User.hasOne(UserProfile, {
   onDelete: 'cascade',
 });
 
+User.hasMany(Trip, {
+  foreignKey: 'organizer',
+  as: 'trips',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+Trip.hasMany(UserToUserRating, {
+  foreignKey: 'trip',
+  as: 'ratings',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+User.hasMany(UserToUserRating, {
+  foreignKey: 'rater',
+  as: 'rated',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+User.hasMany(UserToUserRating, {
+  foreignKey: 'rated',
+  as: 'ratings',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
 function sync(...args) {
   return sequelize.sync(...args);
 }
 
 export default { sync };
-export { User, UserLogin, UserClaim, UserProfile };
+export { User, UserLogin, UserClaim, UserProfile,
+         Trip, UserToUserRating };
