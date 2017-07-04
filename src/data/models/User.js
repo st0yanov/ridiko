@@ -18,18 +18,24 @@ const User = Model.define('User', {
     primaryKey: true,
   },
 
-  email: {
+  messenger_id: {
     type: DataType.STRING(255),
-    validate: { isEmail: true },
   },
 
-  emailConfirmed: {
-    type: DataType.BOOLEAN,
-    defaultValue: false,
+  first_name: {
+    type: DataType.STRING(255),
   },
 
-  name: {
+  last_name: {
     type: DataType.STRING(255),
+  },
+
+  picture: {
+    type: DataType.STRING(255),
+  },
+
+  gender: {
+    type: DataType.STRING(50),
   },
 
   phone: {
@@ -38,10 +44,34 @@ const User = Model.define('User', {
     defaultValue: '',
   },
 
+  hasAirConditioning: {
+    type: DataType.BOOLEAN,
+  },
+
+  prefersAirConditioning: {
+    type: DataType.BOOLEAN,
+  },
+
+  isSmoking: {
+    type: DataType.BOOLEAN,
+  },
+
+  isTolerantToSmoking: {
+    type: DataType.BOOLEAN,
+  },
+
+  isTolerantToPets: {
+    type: DataType.BOOLEAN,
+  },
+
+  isTolerantToEating: {
+    type: DataType.BOOLEAN,
+  },
+
 }, {
 
   indexes: [
-    { fields: ['email'] },
+    { fields: ['messenger_id'] },
   ],
 
 });
