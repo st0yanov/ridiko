@@ -1,6 +1,8 @@
 import Passenger from './conversation/passenger';
 import Driver from './conversation/driver';
 
+import User from '../../data/models/User';
+
 module.exports = (bot) => {
   const searchType = (convo) => {
     convo.ask({
@@ -9,13 +11,12 @@ module.exports = (bot) => {
         {title: 'Превоз', payload: 'SEARCH_TYPE_PASSENGER'},
         {title: 'Пътници', payload: 'SEARCH_TYPE_DRIVER'},
       ],
-    }, (payload, cconvo, data) => {
-      const text = payload.message.text;
-      cconvo.set('search_type', text);
-    }, [
+    }, (payload, cconvo, data) => {}, [
       {
         event: 'quick_reply:SEARCH_TYPE_PASSENGER',
         callback: (payload, cconvo) => {
+          cconvo.set('search_type', 'Превоз');
+
           const passenger = new Passenger(payload, cconvo);
           passenger.conversation();
         },
@@ -23,6 +24,8 @@ module.exports = (bot) => {
       {
         event: 'quick_reply:SEARCH_TYPE_DRIVER',
         callback: (payload, cconvo) => {
+          cconvo.set('search_type', 'Пътници');
+
           const driver = new Driver(payload, cconvo);
           driver.conversation();
         },
@@ -39,10 +42,18 @@ module.exports = (bot) => {
   };
 
   bot.hear('start', (payload, chat) => {
+    const user = User.findOrCreate({ where: { messenger_id: payload.sender.id }, defaults: {
+      messenger_id: payload.sender.id,
+    }});
+
     chat.conversation((convo) => {
+      user.spread((user, created) => {
+        convo.set('user', user.get({
+          plain: true
+        }));
+      });
+      convo.set('user', user);
       convo.sendTypingIndicator(1000).then(() => introduction(convo));
     });
   });
-
-  // bot.sendMessage('1366412910110395', { text: 'test123' }, []);
 };

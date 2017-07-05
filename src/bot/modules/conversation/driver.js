@@ -1,3 +1,6 @@
+import Trip from '../../../data/models/Trip';
+import User from '../../../data/models/User';
+
 export default class Driver {
   constructor(payload, convo) {
     this.payload = payload;
@@ -75,7 +78,11 @@ export default class Driver {
       const text = payload.message.text;
       convo.set('number_passengers', text);
 
-      this.almostReadyMessage();
+      if(this.convo.get('user').phone.length == 0) {
+        this.almostReadyMessage();
+      } else {
+        this.finalMessage();
+      }
     }, [], {
       typing: true,
     });
@@ -262,22 +269,29 @@ export default class Driver {
   finalMessage() {
     this.convo.say(`Поздравления, успешно се записа за споделено пътуване!
 
-Тип: ${this.convo.get('search_type')}
-Тръгване от: ${this.convo.get('trip_from')}
-Пристигане в: ${this.convo.get('trip_to')}
-На дата: ${this.convo.get('trip_date')}
-Часови диапазон: ${this.convo.get('trip_time')}
-Брой пътници: ${this.convo.get('number_passengers')}
-Модел кола:${this.convo.get('brand_car')}
-Със климатик:${this.convo.get('has_ac')}
-Пушене:${this.convo.get('can_smoke')}
-Консумиране:${this.convo.get('can_eat')}
-Домашни любимци: ${this.convo.get('pets_allowed')}
-Почивки:${this.convo.get('taking_rests')}
-Телефон:${this.convo.get('telephone_number')}
-
 Намираш се на 4-то място в опашката с чакащи за тази дата и този часови диапазон. Ще ти изпратим съобщение когато намерим шофьор.
 Ако междувременно решиш да се откажеш от пътуването, моля използвай менюто.`);
+
+    Trip.create({
+      dateAdded: this.convo.get('trip_date'),
+      source: this.convo.get('trip_from'),
+      destination: this.convo.get('trip_to'),
+      startTime: this.convo.get('trip_time'),
+      freeSeats: this.convo.get('number_passengers'),
+      user: this.convo.get('user'),
+    });
+
+    const user = User.findOne({where: {messenger_id: this.payload.sender.id}});
+
+    if(this.convo.get('user').phone.length == 0) {
+      User.update({
+        phone: this.convo.get('telephone_number'),
+        hasAirConditioning: this.convo.get('has_ac'),
+        isTolerantToSmoking: this.convo.get('can_smoke'),
+        isTolerantToPets: this.convo.get('pets_allowed'),
+        isTolerantToEating: this.convo.get('can_eat'),
+      }, { where: { id: user.id } });
+    }
 
     this.convo.end();
   }
