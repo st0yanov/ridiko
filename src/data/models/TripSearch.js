@@ -9,7 +9,15 @@ const TripSearch = Model.define('TripSearch', {
     type: DataType.DATE,
   },
 
+  source: {
+    type: DataType.STRING(255),
+  },
+
   destination: {
+    type: DataType.STRING(255),
+  },
+
+  timeRange: {
     type: DataType.STRING(255),
   },
 });
