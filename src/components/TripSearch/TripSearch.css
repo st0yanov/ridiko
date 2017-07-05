@@ -1,0 +1,18 @@
+@import '../../components/variables.css';
+
+.TripSearch {
+  overflow: hidden;
+}
+
+.TripSearch > .destination {
+  float: left;
+  font-style: italic;
+}
+
+.TripSearch > .dateStarted {
+  float: right;
+}
+
+.TripSearch .dropped {
+  font-style: italic;
+}
