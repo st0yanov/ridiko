@@ -10,6 +10,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
+import Link from '../../components/Link';
 
 class Home extends React.Component {
   static propTypes = {
@@ -18,7 +19,9 @@ class Home extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <div className={s.container} />
+        <div className={s.container}>
+          <Link to="/trips">Trip History</Link>
+        </div>
       </div>
     );
   }
